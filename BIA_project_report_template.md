@@ -23,24 +23,6 @@
 - **Why it is hard:** Some cell types have similar appearances. The model may need to distinguish subtle differences in nucleus shape, staining, and texture. If some classes have fewer examples, overall accuracy can hide poor performance on those classes.
 
 
-## 2 · The data (15 %, with section 1)
-
-| | |
-|---|---|
-| Source, version, download date | [link; paper to cite] |
-| Licence | [licence, and what it allows] |
-| Modality | [CT, MRI, X-ray, ultrasound, microscopy, dermoscopy, endoscopy …; 2D or 3D] |
-| Size | [number of patients, images, voxels or pixels per image; voxel size if known (Session 10)] |
-| Labels: who made them | [one expert, several, a lab test, follow-up, an algorithm (Session 11)] |
-| Labels: agreement | [inter-observer agreement if reported; otherwise "not reported"] |
-| Classes or targets | [counts per class, or share of foreground pixels] |
-| Splits | [training / validation / test; **by patient** if patient numbers exist (Session 7); otherwise say so] |
-| Preprocessing | [resizing, resampling, intensity windows or normalisation (statistics from the training set only)] |
-| Quality checks | [duplicates, broken files, wrong masks you found (look at 20 by eye)] |
-| Shared with Deep Learning? | [yes/no; what was done where] |
-
-[A figure with typical images and their labels or masks.]
-
 
 ## 2 · The data (15 %, with section 1)
 
