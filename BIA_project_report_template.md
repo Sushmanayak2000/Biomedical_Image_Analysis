@@ -17,9 +17,11 @@
 
 ## 1 · The biomedical problem (15 %, with section 2)
 
-- **Clinical question:** [who would use the result, for what decision; for example "count nuclei to see whether a drug kills cells"]
-- **Task type:** [classification, segmentation, detection, regression; what goes in, what comes out]
-- **Why it is hard:** [small lesions, class imbalance, variation between scanners or sites, unclear borders …]
+
+- **Clinical question:** How effectively can a CNN trained from scratch and an ImageNet-pretrained ResNet-18 classify eight types of blood cells in microscopy images? In a laboratory workflow, a classifier could suggest a cell type for a trained reviewer to verify.
+- **Task type:** Multiclass image classification. The input is a 128 × 128 RGB microscopy image of an individual cell. The output is one of eight blood cell types.
+- **Why it is hard:** Some cell types have similar appearances. The model may need to distinguish subtle differences in nucleus shape, staining, and texture. If some classes have fewer examples, overall accuracy can hide poor performance on those classes.
+
 
 ## 2 · The data (15 %, with section 1)
 
