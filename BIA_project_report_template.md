@@ -1,4 +1,4 @@
-# [Title: the clinical question and how you answered it]
+# Eight-Class Blood Cell Classification from Microscopy Images Using a Scratch CNN and Pretrained ResNet-18
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · Winter semester 2026/27**
 **Author(s):** [name(s)] · **Repository:** [link to your GitHub repository] · **Date:** [date]
