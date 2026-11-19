@@ -40,6 +40,10 @@
 | Quality checks | [Summarize the visual review of 20 images and the duplicate checks. Report what you found.] |
 | Shared with Deep Learning? | No. The Deep Learning project used EuroSAT satellite images. |
 
+![Example microscopy images of the eight BloodMNIST classes](results/A1_examples.png)
+
+*Figure 1. Representative 128 × 128 RGB microscopy images from BloodMNIST. The label above each image identifies the cell type.*
+
 ## 3 · Experimental design (15 %)
 
 - **The floor:** [the trivial answer: largest class, or "always background" (Dice 0)]
