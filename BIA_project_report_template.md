@@ -41,6 +41,23 @@
 
 [A figure with typical images and their labels or masks.]
 
+
+## 2 · The data (15 %, with section 1)
+
+| Item | Description |
+|---|---|
+| Source, version, download date | BloodMNIST from MedMNIST v2, using the 128 × 128 MedMNIST+ release. [Add the download link, citation, and date.] |
+| Licence | [Add the licence from the dataset documentation and summarize what it allows.] |
+| Modality | Two-dimensional RGB microscopy images of individual blood cells. |
+| Size | 17,092 images at 128 × 128 pixels. [Add the patient count if reported.] |
+| Labels: who made them | [Describe who assigned the labels, using the original dataset paper.] |
+| Labels: agreement | [Report inter-observer agreement if available. Otherwise write “Not reported.”] |
+| Classes or targets | Eight blood cell types. [Add the class names and counts from Part A.] |
+| Splits | The provided BloodMNIST training, validation, and test splits were used. [Add the image count per split. If patient IDs were unavailable, state that patient-level separation could not be independently verified.] |
+| Preprocessing | Images were loaded at 128 × 128 pixels. [Add the preprocessing and normalization actually used in the notebook.] |
+| Quality checks | [Summarize the visual review of 20 images and the duplicate checks. Report what you found.] |
+| Shared with Deep Learning? | No. The Deep Learning project used EuroSAT satellite images. |
+
 ## 3 · Experimental design (15 %)
 
 - **The floor:** [the trivial answer: largest class, or "always background" (Dice 0)]
