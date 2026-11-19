@@ -1,7 +1,7 @@
 # Eight-Class Blood Cell Classification from Microscopy Images Using a Scratch CNN and Pretrained ResNet-18
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · Winter semester 2026/27**
-**Author(s):** Ishika Thakur , Sushma  · **Repository:** [link to your GitHub repository] · **Date:** [date]
+**Author(s):** Ishika Thakur , Sushma  · **Repository:** https://github.com/Sushmanayak2000/Biomedical_Image_Analysis · **Date:** [date]
 
 > How to use this template: copy it into your repository as `report.md` (or into LaTeX or Word with the same sections).
 > Replace everything in [square brackets]. The section titles follow the eight grading criteria of Session 1 (weights in brackets).
