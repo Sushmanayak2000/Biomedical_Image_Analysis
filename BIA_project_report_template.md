@@ -32,11 +32,11 @@
 | Licence | Creative Commons Attribution 4.0 International (CC BY 4.0). The dataset can be shared, modified and used commercially, provided the original creators are credited and changes are acknowledged.|
 | Modality | Two-dimensional RGB microscopy images of individual blood cells. |
 | Size |17,092 images, each with a resolution of 128 × 128 pixels, belonging to 8 classes. Patient count is not reported in the dataset documentation. |
-| Labels: who made them | [Describe who assigned the labels, using the original dataset paper.] |
-| Labels: agreement | [Report inter-observer agreement if available. Otherwise write “Not reported.”] |
-| Classes or targets | Eight blood cell types. [Add the class names and counts from Part A.] |
-| Splits | The provided BloodMNIST training, validation, and test splits were used. [Add the image count per split. If patient IDs were unavailable, state that patient-level separation could not be independently verified.] |
-| Preprocessing | Images were loaded at 128 × 128 pixels. [Add the preprocessing and normalization actually used in the notebook.] |
+| Labels: who made them | The blood cell images were labelled by clinical pathologists at the Hospital Clínic of Barcelona (Acevedo et al., 2020).|
+| Labels: agreement | Not reported. |
+| Classes or targets | Eight blood cell types: Basophil, Eosinophil, Erythroblast, Immature Granulocytes, Lymphocyte, Monocyte, Neutrophil and Platelet |
+| Splits | The official training (11,959 images), validation (1,712 images) and test (3,421 images) splits provided with BloodMNIST were used. Patient-level separation could not be independently verified because patient IDs were unavailable. |
+| Preprocessing | Original 128 × 128 RGB images were resized to 224 × 224 pixels and normalised using ImageNet mean and standard deviation. Training images were augmented using horizontal and vertical flips and random rotation (±15°). |
 | Quality checks | [Summarize the visual review of 20 images and the duplicate checks. Report what you found.] |
 | Shared with Deep Learning? | No. The Deep Learning project used EuroSAT satellite images. |
 
