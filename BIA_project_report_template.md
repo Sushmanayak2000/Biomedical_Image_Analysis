@@ -18,9 +18,9 @@
 ## 1 · The biomedical problem (15 %, with section 2)
 
 
-- **Clinical question:** How effectively can a CNN trained from scratch and an ImageNet-pretrained ResNet-18 classify eight types of blood cells in microscopy images? In a laboratory workflow, a classifier could suggest a cell type for a trained reviewer to verify.
-- **Task type:** Multiclass image classification. The input is a 128 × 128 RGB microscopy image of an individual cell. The output is one of eight blood cell types.
-- **Why it is hard:** Some cell types have similar appearances. The model may need to distinguish subtle differences in nucleus shape, staining, and texture. If some classes have fewer examples, overall accuracy can hide poor performance on those classes.
+- **Clinical question:** How effectively can CNN-based models, including a CNN trained from scratch and an ImageNet-pretrained ResNet-18, classify eight types of blood cells from microscopy images?
+- **Task type:** Multiclass image classification. The input is a 128 × 128 RGB microscopy image of an individual blood cell. The output is a predicted label corresponding to one of eight blood cell types.
+- **Why it is hard:** Some blood cell types have visually similar characteristics. Distinguishing them may require identifying subtle differences in nucleus shape, staining patterns, and cellular texture. Differences in the number of images available for each class may also affect model performance, meaning that overall accuracy alone may not adequately represent classification performance across all eight classes.
 
 
 
@@ -28,10 +28,10 @@
 
 | Item | Description |
 |---|---|
-| Source, version, download date | BloodMNIST from MedMNIST v2, using the 128 × 128 MedMNIST+ release. [Add the download link, citation, and date.] |
-| Licence | [Add the licence from the dataset documentation and summarize what it allows.] |
+| Source, version, download date | BloodMNIST 128×128 dataset, downloaded directly from Zenodo (Record 10519652). Dataset file: bloodmnist_128.npz. Source: https://zenodo.org/records/10519652, Download date: [12/11/2026].|
+| Licence | Creative Commons Attribution 4.0 International (CC BY 4.0). The dataset can be shared, modified and used commercially, provided the original creators are credited and changes are acknowledged.|
 | Modality | Two-dimensional RGB microscopy images of individual blood cells. |
-| Size | 17,092 images at 128 × 128 pixels. [Add the patient count if reported.] |
+| Size |17,092 images, each with a resolution of 128 × 128 pixels, belonging to 8 classes. Patient count is not reported in the dataset documentation. |
 | Labels: who made them | [Describe who assigned the labels, using the original dataset paper.] |
 | Labels: agreement | [Report inter-observer agreement if available. Otherwise write “Not reported.”] |
 | Classes or targets | Eight blood cell types. [Add the class names and counts from Part A.] |
