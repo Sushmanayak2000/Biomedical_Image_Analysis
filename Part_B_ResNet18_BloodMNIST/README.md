@@ -18,11 +18,13 @@ To what extent does fine-tuning an ImageNet-pretrained ResNet-18 improve multicl
 2. Fine-tuned pretrained ResNet-18
 
 ## Project Structure
+
 - `Part_B_ResNet18_BloodMNIST.ipynb` — Main implementation and experiments
 - `README.md` — Project documentation
 - `requirements.txt` — Python dependencies
-- `results/` — Evaluation results and visualisations
-- `checkpoints/` — Saved model checkpoints
+- `figures/` — Dataset visualisations, confusion matrices, training curves and Grad-CAM images
+- `results/` — Evaluation metrics, performance summaries and bootstrap confidence intervals
+  - `histories/` — Training histories for frozen and fine-tuned models across three random seeds
 
 ## Evaluation
 Models are evaluated using accuracy, macro precision, macro recall and macro F1-score across three random seeds.
