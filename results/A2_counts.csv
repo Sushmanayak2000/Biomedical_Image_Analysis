@@ -1,9 +1,0 @@
-class,train,val,test
-basophil,852,122,244
-eosinophil,2181,312,624
-erythroblast,1085,155,311
-immature granulocyte,2026,290,579
-lymphocyte,849,122,243
-monocyte,993,143,284
-neutrophil,2330,333,666
-platelet,1643,235,470
