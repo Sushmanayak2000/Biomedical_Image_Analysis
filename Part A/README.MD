@@ -16,7 +16,7 @@ We kept the first occurrence of each identical image in train → validation →
 
 We verified that zero exact pixel duplicates remained within or across the retained splits. The archive provides image and label arrays, so we could not verify patient or source overlap. We did not test for near-duplicate overlap.
 
-![One retained training image from each of the eight BloodMNIST classes](results/bloodmnist_class_grid.png)
+![One retained training image from each of the eight BloodMNIST classes](results%20%28part%20A%29/bloodmnist_class_grid.png)
 
 ## Experiment design
 
@@ -25,17 +25,17 @@ We verified that zero exact pixel duplicates remained within or across the retai
 - **Training** — We ran 10 epochs per model on a CUDA GPU with a batch size of 64, cross-entropy loss, and AdamW. We used a learning rate of 0.001 and weight decay of 0.0001.
 - **Preprocessing** — We computed RGB normalization statistics using only retained training images. We used the same deterministic preprocessing for validation and test in both conditions.
 - **Augmentation** — In the augmented condition, we applied horizontal and vertical flips independently to training images, each with probability 0.5.
-- **Checkpoint selection** — We chose each run's best checkpoint by validation macro F1, keeping the earlier epoch in a tie. We froze the settings and checkpoint choices before final test evaluation.
+- **Checkpoint selection** — We chose each run’s best checkpoint by validation macro F1, keeping the earlier epoch in a tie. We froze the settings and checkpoint choices before final test evaluation.
 
 ### Augmentation preview
 
 The first column shows the original image. The remaining columns show independent draws from the augmentation pipeline.
 
-![Original training images and examples of random flips](results/augmentation_preview.png)
+![Original training images and examples of random flips](results%20%28part%20A%29/augmentation_preview.png)
 
 ### Learning curves
 
-![Training loss, validation loss, and validation macro F1 for all six runs](results/runs/834896128886ba35/learning_curves.png)
+![Training loss, validation loss, and validation macro F1 for all six runs](results%20%28part%20A%29/runs/834896128886ba35/learning_curves.png)
 
 ## Test results
 
@@ -54,18 +54,18 @@ We calculated each paired change by subtracting the score without augmentation f
 | 43 | −2.90 | −3.46 | −3.93 |
 | 44 | −0.53 | −0.62 | −0.77 |
 
-Mean test F1 declined for seven of the eight classes. The largest drops were for monocytes (−3.36 points), basophils (−2.53), immature granulocytes (−2.31), and lymphocytes (−2.05). Platelets gained 0.04 points. Under this 10-epoch training setup, the random flips reduced test accuracy, macro F1, and balanced accuracy in all three seed pairs.
+Mean test F1 declined for seven of the eight classes. The largest drops were for monocytes (−3.36 points), basophils (−2.53), immature granulocytes (−2.31), and lymphocytes (−2.05). Platelets gained 0.04 points. Under this 10-epoch training setup, random flips reduced test accuracy, macro F1, and balanced accuracy in all three seed pairs.
 
 ### Test confusion matrices
 
 The top row shows runs without augmentation. The bottom row shows runs with augmentation. Each column corresponds to one paired seed.
 
-![Labeled test confusion matrices for all six runs](results/runs/834896128886ba35/test_confusion_matrices.png)
+![Labeled test confusion matrices for all six runs](results%20%28part%20A%29/runs/834896128886ba35/test_confusion_matrices.png)
 
 ## Reproduce the experiment
 
-1. Open `BloodMNIST_Part_A.ipynb` in JupyterLab on Compute Data Lab with a CUDA-enabled PyTorch kernel.
-2. Run the notebook in order from a fresh kernel. The notebook checks CUDA availability and downloads BloodMNIST at 128 × 128. The exact package versions and GPU details are recorded in `results/run_config.json`.
+1. Open `PartA_cnn.ipynb` in JupyterLab on Compute Data Lab with a CUDA-enabled PyTorch kernel.
+2. Run the notebook in order from a fresh kernel. The notebook checks CUDA availability and downloads BloodMNIST at 128 × 128. The exact package versions and GPU details are recorded in `results (part A)/run_config.json`.
 3. Run the six training runs and review the validation results. The training cell resumes interrupted runs from the last saved epoch and reuses completed runs when the configuration matches.
 4. Freeze the experiment settings, run the separate final test evaluation cell, and verify the saved outputs.
 
@@ -74,9 +74,9 @@ The top row shows runs without augmentation. The bottom row shows runs with augm
 ```text
 repository/
 └── Part A/
-    ├── README.md
-    ├── BloodMNIST_Part_A.ipynb
-    └── results/
+    ├── README.MD
+    ├── PartA_cnn.ipynb
+    └── results (part A)/
         ├── split_manifest.json
         ├── bloodmnist_class_grid.png
         ├── class_distribution.csv
@@ -106,12 +106,12 @@ repository/
 
 ## Saved outputs
 
-The notebook writes outputs to `~/BloodMNIST_Part_A_outputs/results/` on Compute Data Lab. Extract the `results/` folder from the export ZIP and place it beside this README to render the figures on GitHub.
+The notebook writes outputs to `~/BloodMNIST_Part_A_outputs/results/` on Compute Data Lab. The exported results are stored beside this README in `results (part A)/`.
 
 | Location | Contents |
 | --- | --- |
-| `results/` | Split manifest, class counts and percentages, image grid, augmentation preview, normalization statistics, and run configuration |
-| `results/runs/834896128886ba35/` | Frozen experiment record, validation and test summaries, per-class metrics, learning curves, labeled confusion matrices, and paired comparison tables |
-| `results/runs/834896128886ba35/seed_<seed>/<condition>/` | Best and resume checkpoints, epoch history, validation and test confusion matrix counts, and per-image test predictions with original row IDs |
+| `results (part A)/` | Split manifest, class counts and percentages, image grid, augmentation preview, normalization statistics, and run configuration |
+| `results (part A)/runs/834896128886ba35/` | Frozen experiment record, validation and test summaries, per-class metrics, learning curves, labeled confusion matrices, and paired comparison tables |
+| `results (part A)/runs/834896128886ba35/seed_<seed>/<condition>/` | Best and resume checkpoints, epoch history, validation and test confusion matrix counts, and per-image test predictions with original row IDs |
 
 The notebook verified that all 54 expected output files were present and nonempty.
