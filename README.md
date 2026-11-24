@@ -2,7 +2,7 @@
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · Winter semester 2026/27**
 
-**Authors:** Ishika Thakur and Sushma  
+**Authors:** Ishika Thakur (Part A) and Sushma (Part B)
 **Repository:** https://github.com/Sushmanayak2000/Biomedical_Image_Analysis  
 **Date:** [date]
 
