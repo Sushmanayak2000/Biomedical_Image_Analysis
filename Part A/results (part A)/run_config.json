@@ -1,0 +1,91 @@
+{
+  "dataset": {
+    "name": "BloodMNIST",
+    "collection": "MedMNIST v2",
+    "input_size": [
+      128,
+      128,
+      3
+    ],
+    "archive": "bloodmnist_128.npz",
+    "source_url": "https://zenodo.org/records/10519652/files/bloodmnist_128.npz?download=1",
+    "published_md5": "adace1e0ed228fccda1f39692059dd4c",
+    "split_manifest_sha256": "274d05d042f7bf86b81c6256b5ee0415e0a5ebba9499d5826e802c052f777425",
+    "class_names": [
+      "basophil",
+      "eosinophil",
+      "erythroblast",
+      "immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",
+      "lymphocyte",
+      "monocyte",
+      "neutrophil",
+      "platelet"
+    ]
+  },
+  "model": {
+    "name": "BloodCellCNN",
+    "convolution_channels": [
+      16,
+      32,
+      64
+    ],
+    "adaptive_pool_size": [
+      4,
+      4
+    ],
+    "trainable_parameters": 31896
+  },
+  "training": {
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "conditions": [
+      "without_augmentation",
+      "with_augmentation"
+    ],
+    "epochs": 10,
+    "batch_size": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss": "CrossEntropyLoss",
+    "checkpoint_metric": "validation_macro_f1",
+    "checkpoint_tie_break": "earliest_epoch"
+  },
+  "preprocessing": {
+    "rgb_mean": [
+      0.796079049758057,
+      0.6596479524389235,
+      0.6963718767462326
+    ],
+    "rgb_std": [
+      0.225758983232216,
+      0.25862080197165765,
+      0.0957165045548989
+    ],
+    "augmented_training_only": {
+      "horizontal_flip_probability": 0.5,
+      "vertical_flip_probability": 0.5
+    }
+  },
+  "environment": {
+    "packages": {
+      "medmnist": "3.0.2",
+      "torch": "2.9.1",
+      "torchvision": "0.24.1",
+      "numpy": "2.3.2",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.8.0",
+      "matplotlib": "3.10.8",
+      "Pillow": "11.3.0"
+    },
+    "device": "cuda:0",
+    "gpu": "NVIDIA RTX A6000",
+    "pytorch_cuda_build": "12.8",
+    "cudnn_version": 91002,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false
+  }
+}
