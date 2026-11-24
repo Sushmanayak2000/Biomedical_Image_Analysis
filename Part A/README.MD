@@ -69,6 +69,16 @@ The top row shows runs without augmentation. The bottom row shows runs with augm
 3. Run the six training runs and review the validation results. The training cell resumes interrupted runs from the last saved epoch and reuses completed runs when the configuration matches.
 4. Freeze the experiment settings, run the separate final test evaluation cell, and verify the saved outputs.
 
+### Requirements
+
+From the `Part A/` directory, install the dependencies in the Python environment used by your JupyterLab kernel:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Training requires a CUDA-enabled PyTorch installation. Run the notebook’s CUDA check before starting training. The package versions and GPU used for the reported runs are recorded in `results (part A)/run_config.json`.
+
 ## Repository structure
 
 ```text
