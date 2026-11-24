@@ -134,7 +134,7 @@ Both parts used a public research dataset. Misclassification could affect clinic
 
 ## 7 · Use of AI tools (5%)
 
-For Part A, ChatGPT helped draft notebook cells, troubleshoot implementation and interpret evaluation outputs. We checked CUDA execution, the CNN output shape, the duplicate audit and the saved results against actual notebook outputs.
+For Part A, ChatGPT helped troubleshoot implementation and interpret evaluation outputs. We checked CUDA execution, the CNN output shape, the duplicate audit and the saved results against actual notebook outputs.
 
 For Part B, ChatGPT helped explain ResNet-18 and PyTorch concepts, troubleshoot errors and structure the report. We inspected tensor shapes, training and validation outputs, checkpoints and evaluation results. We also examined Grad-CAM outputs, including a random-weight sanity check. The reported metrics come from the notebook outputs.
 
