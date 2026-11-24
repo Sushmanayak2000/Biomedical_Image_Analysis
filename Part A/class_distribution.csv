@@ -1,0 +1,25 @@
+split,class_id,class_name,count,percentage
+train,0,basophil,850,7.112375533428165
+train,1,eosinophil,2179,18.23278386745879
+train,2,erythroblast,1085,9.078738180905363
+train,3,"immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",2023,16.927453769559033
+train,4,lymphocyte,849,7.104008032800603
+train,5,monocyte,992,8.300560622542047
+train,6,neutrophil,2330,19.496276462220735
+train,7,platelet,1643,13.747803531085264
+val,0,basophil,121,7.080163838502048
+val,1,eosinophil,310,18.139262726740785
+val,2,erythroblast,155,9.069631363370393
+val,3,"immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",290,16.968987712112348
+val,4,lymphocyte,122,7.1386775892334695
+val,5,monocyte,143,8.36746635459333
+val,6,neutrophil,333,19.485078993563487
+val,7,platelet,235,13.750731421884144
+test,0,basophil,241,7.057101024890191
+test,1,eosinophil,622,18.213762811127378
+test,2,erythroblast,311,9.106881405563689
+test,3,"immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",579,16.954612005856514
+test,4,lymphocyte,243,7.1156661786237185
+test,5,monocyte,284,8.316251830161054
+test,6,neutrophil,665,19.472913616398245
+test,7,platelet,470,13.762811127379209
