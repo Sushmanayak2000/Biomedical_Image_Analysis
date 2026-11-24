@@ -10,6 +10,16 @@
 
 We investigated two training choices for classifying eight blood cell types from RGB microscopy images in BloodMNIST. In Part A, we trained a custom CNN from scratch with and without random horizontal and vertical flips across three paired seeds. Mean test macro F1 was 97.13% ± 0.63 without flips and 95.68% ± 1.37 with flips, a mean paired decrease of 1.45 percentage points. In Part B, the fine-tuned ImageNet-pretrained ResNet-18 achieved 98.80% ± 0.18 test accuracy, compared with 89.03% ± 0.27 for the frozen backbone. These results describe performance on BloodMNIST. Performance on independent clinical datasets remains unverified.
 
+## Repository Structure
+
+| File or folder | Purpose |
+| --- | --- |
+| [`Part A/`](./Part%20A/) | Contains the custom CNN trained from scratch on BloodMNIST, the comparison with and without data augmentation, and the saved evaluation results. |
+| [`Part_B_ResNet18_BloodMNIST/`](./Part_B_ResNet18_BloodMNIST/) | Contains the ResNet-18 transfer learning experiments for BloodMNIST classification and their evaluation results. |
+| [`lab_results/`](./lab_results/) | Contains the instructor-provided lab notebook and the outputs from the in-class exercises for lab Parts A, B, and C. |
+| [`BloodMNIST_SharedPreps.ipynb`](./BloodMNIST_SharedPreps.ipynb) | Records the initial BloodMNIST dataset exploration and preparation that both team members worked on together. |
+| [`README.md`](./README.md) | Introduces the project and explains how the repository is organized. |
+
 ## 1 · The biomedical problem (15%, with Section 2)
 
 - **Clinical question** — How effectively can CNN-based models classify eight types of blood cells from microscopy images?
