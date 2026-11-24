@@ -4,7 +4,7 @@
 
 **Authors: Ishika Thakur (Part A) and Sushma (Part B)**
 **Repository:** https://github.com/Sushmanayak2000/Biomedical_Image_Analysis  
-**Date:** [date]
+**Date:** 24 November 2026
 
 ## Abstract
 
