@@ -76,10 +76,18 @@ We ran both conditions for seeds 42, 43 and 44. Within each pair, we matched ini
 
 ### Part B · Transfer learning with ResNet-18
 
-We compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fine-tuned ResNet-18. In the frozen configuration, we trained only the final classification layer. In the fine-tuned configuration, we trained all layers. Both configurations used cross-entropy loss.
+We investigated whether fine-tuning an ImageNet-pretrained ResNet-18 improves blood cell classification compared with keeping its pretrained feature-extraction layers frozen. Our hypothesis was that fine-tuning would improve classification performance because the network could adapt its learned features to the visual characteristics of blood-cell microscopy images.
 
-Both configurations used the official BloodMNIST splits, a batch size of 64, 10 epochs per run and seeds 42, 43 and 44. The learning rates were 0.001 for the frozen model and 0.0001 for the fine-tuned model. We evaluated accuracy, macro precision, macro recall and macro F1.
+We compared two configurations:
 
+- **Frozen ResNet-18:** The pretrained backbone remained frozen, and only the final classification layer was trained to predict the eight BloodMNIST classes.
+- **Fine-tuned ResNet-18:** All network layers, including the pretrained backbone and final classification layer, were trainable, allowing the model to adapt its features to the target dataset.
+
+Both configurations used the AdamW optimiser and cross-entropy loss, with a weight decay of 0.0001. The frozen model used a learning rate of 0.001, while the fine-tuned model used a lower learning rate of 0.0001. Each configuration was trained for 10 epochs per run, with a batch size of 64 and three random seeds (42, 43 and 44).
+
+Both configurations used the same duplicate-cleaned BloodMNIST training, validation and test splits. Images were resized to 224 × 224 pixels and normalised using ImageNet mean and standard deviation. Training images were augmented using random horizontal and vertical flips and rotations of up to ±15°. Validation and test images received deterministic preprocessing without random augmentation.
+
+We selected model checkpoints based on validation accuracy and evaluated the selected checkpoints on the held-out test set. We reported accuracy, macro precision, macro recall and macro F1 to assess overall and class-balanced performance.
 ## 4 · Implementation and reproducibility (25%)
 
 ### Part A
@@ -94,11 +102,17 @@ To install the Part A dependencies, run this command from the `Part A/` folder i
 python -m pip install -r requirements.txt
 ~~~
 
-### Part B
+#### Part B
 
-- **Notebook and environment** — We implemented the experiment using Python and PyTorch. The Part B `requirements.txt` documents its dependencies.
-- **Seeds and hardware** — Both configurations ran on an NVIDIA A6000 GPU for 10 epochs per seed with a batch size of 64. The seeds were 42, 43 and 44.
-- **Outputs** — The notebook generates training histories, validation and test metrics, classification reports, confusion matrices, bootstrap confidence intervals, Grad-CAM visualisations and prediction examples.
+- **Notebook and environment** — We implemented the experiments in `Part_B_ResNet18_BloodMNIST.ipynb` using Python 3.11.13 and PyTorch 2.9.1 with CUDA 12.8. The experiments ran on an NVIDIA RTX A6000 GPU with 47.4 GB of memory.
+
+- **Dependencies** — The Part B `requirements.txt` specifies the package versions used in the experiment, including PyTorch, Torchvision, MedMNIST, NumPy, Pandas and scikit-learn.
+
+- **Reproducibility and training configuration** — We controlled random seeds across Python, NumPy and PyTorch, using seeds 42, 43 and 44. Deterministic cuDNN settings were enabled where supported. Both model configurations used the same cleaned dataset splits, with 11,951 training, 1,709 validation and 3,415 test images.
+
+- **Checkpoint selection** — For each run, the model checkpoint with the highest validation accuracy was selected. The test split was reserved for final evaluation and was not used for checkpoint selection.
+
+- **Saved outputs** — The notebook generates training histories, validation and test metrics, classification reports, confusion matrices, bootstrap confidence intervals, Grad-CAM visualisations and prediction examples. Model checkpoints are saved in the `results/checkpoints/` directory.
 
 ## 5 · Evaluation, validation and critical analysis (15%)
 
