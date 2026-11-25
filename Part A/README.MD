@@ -100,7 +100,7 @@ Across all classes, 27 test images were misclassified by all six runs.
 ```text
 Part A/
 ├── README.md
-├── BloodMNIST_Part_A.ipynb
+├── Part_A.ipynb
 └── results 4/
     ├── split_manifest.json
     ├── bloodmnist_class_grid.png
