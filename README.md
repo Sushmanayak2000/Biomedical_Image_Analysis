@@ -7,8 +7,7 @@
 **Date:** 25 November 2026
 
 ## Abstract
-
-We investigated two approaches to classifying eight blood cell types from RGB microscopy images in BloodMNIST. In Part A, we trained a custom CNN from scratch for 20 epochs with and without random horizontal and vertical flips across three paired seeds. Mean test macro F1 was **97.44% ± 0.23** without flips and **97.09% ± 0.40** with flips, a mean paired decrease of **0.35 percentage points**. In Part B, the fine-tuned ImageNet-pretrained ResNet-18 achieved **98.80% ± 0.18** test accuracy, compared with **89.03% ± 0.27** for the frozen backbone. These results describe performance on BloodMNIST. Performance on independent clinical datasets remains unverified.
+We investigated approaches to classifying eight blood cell types from RGB microscopy images using the BloodMNIST dataset. In Part A, we trained a custom convolutional neural network (CNN) from scratch for 20 epochs, comparing training with and without random horizontal and vertical flips across three paired seeds. The model achieved a mean test macro F1 of 97.44% ± 0.23 without augmentation and 97.09% ± 0.40 with augmentation,mean paired decrease of 0.35 percentage points. In Part B, we compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fully fine-tuned model. The fine-tuned model achieved a mean test accuracy of 98.81% ± 0.02, compared with 88.97% ± 0.22 for the frozen model. Overall, fine-tuning achieved the strongest classification performance among the evaluated approaches. These findings apply to the BloodMNIST dataset and do not establish generalisation to independent clinical datasets.
 
 ## Repository structure
 
@@ -26,6 +25,7 @@ We investigated two approaches to classifying eight blood cell types from RGB mi
 - **Clinical question** — How effectively can CNN-based models classify eight types of blood cells from microscopy images?
 - **Task** — Multiclass image classification. Each input is an RGB microscopy image of an individual blood cell, and the model predicts one of eight class labels.
 - **Why it is hard** — Some cell types differ in subtle features such as nucleus shape, staining patterns and cellular texture. Class frequencies also vary, so overall accuracy can hide errors concentrated in individual classes.
+- **Focus class (Immature granulocytes)** — We pay particular attention to immature granulocytes because they can be confused with other granulocyte types, especially neutrophils. We therefore examine their recall separately to understand how reliably each model identifies this class.
 
 ## 2 · The data (15%, with Section 1)
 
@@ -41,13 +41,14 @@ We investigated two approaches to classifying eight blood cell types from RGB mi
 | Part B preprocessing | Images resized to 224 × 224 with ImageNet normalisation. Training augmentation included horizontal and vertical flips and rotation up to ±15°. |
 | Deep Learning project | The separate Deep Learning project used EuroSAT satellite images. |
 
-Both parts started with the official BloodMNIST splits. Part A removed exact pixel duplicates before preprocessing. Part B used the official split sizes.
+Both parts started with the official BloodMNIST splits and removed exact pixel duplicates before preprocessing. After duplicate removal, the retained dataset contained 11,951 training images, 1,709 validation images and 3,415 test images for each part.
 
-| Split | Official images | Retained for Part A | Excluded from Part A |
+| Split | Official images | Retained after duplicate removal | Excluded |
 | --- | ---: | ---: | ---: |
 | Training | 11,959 | 11,951 | 8 |
 | Validation | 1,712 | 1,709 | 3 |
 | Test | 3,421 | 3,415 | 6 |
+| **Total** | **17,092** | **17,075** | **17** |
 
 Part A checked image shapes, label range and class coverage. For pixel-identical images, we kept the first occurrence in train → validation → test order and used the original row order within each split. One excluded test duplicate had a conflicting label. The split manifest records both labels, and the retained row kept its original label. Training row selection was independent of validation and test labels.
 
@@ -56,6 +57,8 @@ The retained Part A splits contained zero exact pixel duplicates within or acros
 ![One retained training example from each BloodMNIST class](./Part%20A/results%204/bloodmnist_class_grid.png)
 
 *Figure 1. Representative 128 × 128 RGB images from the retained Part A training split.*
+
+Part B used the same retained, duplicate-free training, validation and test splits as Part A. For ResNet-18, images were resized from 128 × 128 to 224 × 224 pixels and normalised using ImageNet mean and standard deviation. Training images were augmented using random horizontal and vertical flips and rotations of up to ±15°. Validation and test images were resized and normalised without random augmentation.
 
 ## 3 · Experimental design (15%)
 
