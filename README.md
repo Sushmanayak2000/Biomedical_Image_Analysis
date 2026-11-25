@@ -137,17 +137,7 @@ We selected checkpoints using validation accuracy and evaluated them on the offi
 - **Most frequent mistake.** Across the three seeds, the scratch CNN most often misclassified neutrophils as immature granulocytes, doing so in 57 of 1,995 neutrophil predictions (2.86%) without augmentation and 74 of 1,995 (3.71%) with augmentation.
 - **Who could be harmed and who is missing.** Patients could be harmed if an incorrect cell label influenced their care, and BloodMNIST lacks patient demographic metadata, so we cannot determine which patient groups are underrepresented.
 - **Who decides.** We define the scratch CNN as a research and teaching tool, and qualified laboratory staff and clinicians remain responsible for interpreting blood smears.
-- **Heat map to assess for a correct prediction.** Use seed 43 without augmentation and original test row 11, a correctly classified neutrophil.
-- **Heat map to assess for an incorrect prediction.** Use the same checkpoint and original test row 35, a neutrophil incorrectly classified as an immature granulocyte.
 
-- #### Grad-CAM heat maps
-
-![Part A Grad-CAM for a correctly classified neutrophil and a neutrophil misclassified as an immature granulocyte](Part%20A/results%20%28part%20A%29/part_a_gradcam.png)
-
-*Both examples use the scratch CNN trained without augmentation at seed 43. The top row shows test image 11, correctly classified as a neutrophil. The bottom row shows test image 35, incorrectly classified as an immature granulocyte.*
-
-- **Heat map we trust.** For test image 11, we find the heat map plausible because the strongest activation falls over [describe the part of the cell you see highlighted].
-- **Heat map we do not trust.** For test image 35, the model predicted the wrong class, and the strongest activation falls over [describe what is highlighted], so we would use this map to examine the error rather than to validate the prediction.
 
 ### Part B
 
