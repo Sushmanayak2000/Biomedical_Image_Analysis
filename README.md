@@ -106,7 +106,11 @@ python -m pip install -r requirements.txt
 
 - **Notebook and environment** — We implemented the experiments in `Part_B_ResNet18_BloodMNIST.ipynb` using Python 3.11.13 and PyTorch 2.9.1 with CUDA 12.8. The experiments ran on an NVIDIA RTX A6000 GPU with 47.4 GB of memory.
 
-- **Dependencies** — The Part B `requirements.txt` specifies the package versions used in the experiment, including PyTorch, Torchvision, MedMNIST, NumPy, Pandas and scikit-learn.
+- **Dependencies** — The Part B `requirements.txt` specifies the package versions used in the experiment, including PyTorch, Torchvision, MedMNIST, NumPy, Pandas and scikit-learn. To install the Part B dependencies, run this command from the `Part_B_ResNet18_BloodMNIST/` folder in a Python 3.11 environment configured for NVIDIA CUDA:
+
+~~~bash
+python -m pip install -r requirements.txt
+~~~
 
 - **Reproducibility and training configuration** — We controlled random seeds across Python, NumPy and PyTorch, using seeds 42, 43 and 44. Deterministic cuDNN settings were enabled where supported. Both model configurations used the same cleaned dataset splits, with 11,951 training, 1,709 validation and 3,415 test images.
 
@@ -155,16 +159,51 @@ Recall improved for two seeds and declined for one. The confidence interval for 
 
 *Figure 4. Columns show seeds 42, 43 and 44. The top row shows runs without augmentation, and the bottom row shows runs with augmentation.*
 
-### Part B
+### Part B · Evaluation, Validation and Critical Analysis
 
-| Setting | Mean test accuracy (%) | Reported spread (pp) | Seeds |
-| --- | ---: | ---: | --- |
-| Frozen ResNet-18 | 89.03 | 0.27 | 42, 43, 44 |
-| Fine-tuned ResNet-18 | 98.80 | 0.18 | 42, 43, 44 |
+#### Overall performance
 
-The fine-tuned model also achieved mean test macro precision of 98.90%, macro recall of 98.86% and macro F1 of 98.88%. Frequent errors involved neutrophils and immature granulocytes. We also observed confusion involving immature granulocytes, monocytes and lymphocytes.
+We evaluated both ResNet-18 configurations on the same duplicate-cleaned test set of 3,415 images. Results are reported as mean ± standard deviation across three random seeds.
 
-Part B selected checkpoints using validation accuracy and evaluated them on the official 3,421-image test split. Parts A and B differ in architecture, pretraining, input resolution, augmentation, split handling and checkpoint selection. These differences limit what can be inferred from the gap between their scores.
+| Model configuration | Accuracy (%) | Macro precision (%) | Macro recall (%) | Macro F1 (%) |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen ResNet-18 | 88.97 ± 0.22 | 89.93 ± 0.30 | 87.06 ± 0.88 | 88.11 ± 0.60 |
+| Fine-tuned ResNet-18 | 98.81 ± 0.02 | 98.98 ± 0.04 | 98.84 ± 0.01 | 98.91 ± 0.02 |
+
+Fine-tuning improved test accuracy by 9.84 percentage points and macro F1 by 10.80 percentage points. The low standard deviations across the three runs indicate consistent performance. Overall, adapting the pretrained backbone to BloodMNIST substantially improved classification compared with training only the final classification layer.
+
+#### Validation and class-wise analysis
+
+For each run, we selected the checkpoint with the highest validation accuracy and reserved the test set for final evaluation. We used accuracy, macro precision, macro recall and macro F1 to assess overall and class-balanced performance.
+
+The fine-tuned model achieved improved performance across all eight classes. However, the confusion matrices revealed that some visually similar cell types remained challenging. The most frequent error was neutrophils classified as immature granulocytes (51 errors across three seeds), followed by immature granulocytes classified as neutrophils (21 errors). Other recurring errors included monocytes classified as immature granulocytes (11) and erythroblasts classified as immature granulocytes (9).
+
+These errors indicate that the distinction between neutrophils and immature granulocytes remained particularly challenging. The 51 neutrophil-to-immature-granulocyte errors represented approximately 2.56% of pooled neutrophil test predictions across the three runs, while the reverse errors represented approximately 1.21% of pooled immature-granulocyte predictions.
+
+#### Focus-class analysis: Immature granulocytes
+
+We examined immature granulocyte recall separately because of its visual similarity to other granulocyte types.
+
+| Model configuration | Mean recall (%) | 95% bootstrap CI |
+| --- | ---: | ---: |
+| Frozen ResNet-18 | 84.80 | 81.98–87.56 |
+| Fine-tuned ResNet-18 | 98.39 | 97.58–99.08 |
+
+Fine-tuning improved immature granulocyte recall by 13.59 percentage points. This demonstrates a substantial improvement in identifying the focus class, although some confusion with neutrophils remained.
+
+#### Critical analysis and limitations
+
+Despite its strong test performance, the model has several limitations:
+
+- **Dataset generalisation:** BloodMNIST is a benchmark dataset, and performance on it does not guarantee similar results on images from other hospitals, laboratories or microscopy systems. External validation is required.
+- **Patient-level independence:** Patient identifiers were unavailable, so we could not verify whether images from the same patient appeared across different dataset splits.
+- **Near-duplicate images:** Exact duplicates were removed, but five retained near-twin relationships were identified during the dataset audit. These could potentially influence test performance.
+- **Class similarity:** Remaining confusion between neutrophils and immature granulocytes suggests that visually similar cell categories are still challenging to distinguish.
+- **Pretraining limitations:** ImageNet features were originally learned from natural images rather than blood-cell microscopy. The improvement after fine-tuning suggests that adapting these features to the target dataset was important.
+- **Explainability:** Grad-CAM highlights image regions influencing predictions, but it cannot prove that the model relies on biologically meaningful features.
+- **Clinical applicability:** The model has only been evaluated on a benchmark dataset and should not be considered a diagnostic tool. Expert review and independent clinical validation would be necessary before practical use.
+
+Overall, fine-tuning ResNet-18 substantially improved classification performance and immature granulocyte recall. However, remaining class confusion, dataset limitations and the absence of external clinical validation mean that these results demonstrate strong benchmark performance rather than established clinical reliability.
 
 ## 6 · Explainability, ethics and clinical responsibility (5%)
 
