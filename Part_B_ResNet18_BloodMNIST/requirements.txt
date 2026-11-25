@@ -1,4 +1,4 @@
-# Python version: 3.11.13
+Python version: 3.11.13
 
 # Deep learning
 torch==2.9.1+cu128
