@@ -1,0 +1,11 @@
+true_class,predicted_as,with_augmentation,without_augmentation
+neutrophil,immature granulocytes,31.333333333333332,18.0
+immature granulocytes,neutrophil,11.0,18.0
+monocyte,immature granulocytes,12.0,9.333333333333334
+immature granulocytes,basophil,8.333333333333334,8.666666666666666
+immature granulocytes,monocyte,5.333333333333333,5.0
+monocyte,lymphocyte,6.0,2.6666666666666665
+basophil,immature granulocytes,3.6666666666666665,3.3333333333333335
+lymphocyte,erythroblast,3.0,1.6666666666666667
+immature granulocytes,eosinophil,3.3333333333333335,1.3333333333333333
+erythroblast,neutrophil,1.3333333333333333,2.6666666666666665

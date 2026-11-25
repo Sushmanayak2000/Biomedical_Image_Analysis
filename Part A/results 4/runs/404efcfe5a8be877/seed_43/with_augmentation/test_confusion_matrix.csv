@@ -1,0 +1,9 @@
+true_class,basophil,eosinophil,erythroblast,"immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",lymphocyte,monocyte,neutrophil,platelet
+basophil,230,5,0,6,0,0,0,0
+eosinophil,0,622,0,0,0,0,0,0
+erythroblast,0,0,309,1,0,0,1,0
+"immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",3,4,3,552,0,8,9,0
+lymphocyte,0,0,6,0,236,1,0,0
+monocyte,0,0,2,5,3,274,0,0
+neutrophil,0,0,4,27,0,0,634,0
+platelet,0,0,0,0,0,0,0,470

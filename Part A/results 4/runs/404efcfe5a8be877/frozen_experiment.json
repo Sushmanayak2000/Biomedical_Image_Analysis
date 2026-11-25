@@ -1,0 +1,145 @@
+{
+  "config_id": "404efcfe5a8be877fe40517830b20ec3ae276414d0c4ec86a2987e74fa9f2eaa",
+  "configuration": {
+    "dataset": {
+      "name": "BloodMNIST",
+      "collection": "MedMNIST v2",
+      "input_size": [
+        128,
+        128,
+        3
+      ],
+      "archive": "bloodmnist_128.npz",
+      "source_url": "https://zenodo.org/records/10519652/files/bloodmnist_128.npz?download=1",
+      "published_md5": "adace1e0ed228fccda1f39692059dd4c",
+      "split_manifest_sha256": "274d05d042f7bf86b81c6256b5ee0415e0a5ebba9499d5826e802c052f777425",
+      "class_names": [
+        "basophil",
+        "eosinophil",
+        "erythroblast",
+        "immature granulocytes(myelocytes, metamyelocytes and promyelocytes)",
+        "lymphocyte",
+        "monocyte",
+        "neutrophil",
+        "platelet"
+      ]
+    },
+    "model": {
+      "name": "BloodCellCNN",
+      "convolution_channels": [
+        16,
+        32,
+        64
+      ],
+      "adaptive_pool_size": [
+        4,
+        4
+      ],
+      "trainable_parameters": 31896
+    },
+    "training": {
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "conditions": [
+        "without_augmentation",
+        "with_augmentation"
+      ],
+      "epochs": 20,
+      "batch_size": 64,
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "loss": "CrossEntropyLoss",
+      "checkpoint_metric": "validation_macro_f1",
+      "checkpoint_tie_break": "earliest_epoch"
+    },
+    "preprocessing": {
+      "rgb_mean": [
+        0.796079049758057,
+        0.6596479524389235,
+        0.6963718767462326
+      ],
+      "rgb_std": [
+        0.225758983232216,
+        0.25862080197165765,
+        0.0957165045548989
+      ],
+      "augmented_training_only": {
+        "horizontal_flip_probability": 0.5,
+        "vertical_flip_probability": 0.5
+      }
+    },
+    "environment": {
+      "packages": {
+        "medmnist": "3.0.2",
+        "torch": "2.9.1",
+        "torchvision": "0.24.1",
+        "numpy": "2.3.2",
+        "pandas": "2.3.3",
+        "scikit-learn": "1.8.0",
+        "matplotlib": "3.10.8",
+        "Pillow": "11.3.0"
+      },
+      "device": "cuda:0",
+      "gpu": "NVIDIA RTX A6000",
+      "pytorch_cuda_build": "12.8",
+      "cudnn_version": 91002,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false
+    }
+  },
+  "budget_decision": "We kept the shared 20-epoch budget because validation macro F1 did not improve consistently near the end across the six runs.",
+  "checkpoints": [
+    {
+      "seed": 42,
+      "condition": "without_augmentation",
+      "selected_epoch": 17,
+      "validation_macro_f1": 0.9776015428643903,
+      "checkpoint": "seed_42/without_augmentation/best_checkpoint.pt",
+      "sha256": "697b21905e3f24200c3714c1a4e515f28b08692e00e209d10935e2c469126993"
+    },
+    {
+      "seed": 42,
+      "condition": "with_augmentation",
+      "selected_epoch": 13,
+      "validation_macro_f1": 0.9811345021127874,
+      "checkpoint": "seed_42/with_augmentation/best_checkpoint.pt",
+      "sha256": "98d9be05e8c086bae2ca9467986e6f411681602d3cc7f266e2a4a73c0e271ce3"
+    },
+    {
+      "seed": 43,
+      "condition": "without_augmentation",
+      "selected_epoch": 20,
+      "validation_macro_f1": 0.9759244130732896,
+      "checkpoint": "seed_43/without_augmentation/best_checkpoint.pt",
+      "sha256": "8534505e5678ada7e4e01ec435e22a256fec67c7a63c5577c947813d166812fd"
+    },
+    {
+      "seed": 43,
+      "condition": "with_augmentation",
+      "selected_epoch": 16,
+      "validation_macro_f1": 0.9769798523113322,
+      "checkpoint": "seed_43/with_augmentation/best_checkpoint.pt",
+      "sha256": "ad1660483899154b7a8924cda0bc697a6ead424dfb7ac18aaa64f34390f3c1eb"
+    },
+    {
+      "seed": 44,
+      "condition": "without_augmentation",
+      "selected_epoch": 17,
+      "validation_macro_f1": 0.9811449951977104,
+      "checkpoint": "seed_44/without_augmentation/best_checkpoint.pt",
+      "sha256": "a8bd4f3f0ef3e99c97426b0992f8e1e6415afd5b6e978b82cd96fc137a40c8a4"
+    },
+    {
+      "seed": 44,
+      "condition": "with_augmentation",
+      "selected_epoch": 18,
+      "validation_macro_f1": 0.9795139019022989,
+      "checkpoint": "seed_44/with_augmentation/best_checkpoint.pt",
+      "sha256": "7509b7735fc7a226712a0beb7462dd467c28e9ed0d1e328198b86b6e1da6e954"
+    }
+  ]
+}
