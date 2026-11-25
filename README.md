@@ -7,8 +7,8 @@
 **Date:** 25 November 2026
 
 ## Abstract
-We investigated approaches to classifying eight blood cell types from RGB microscopy images using the BloodMNIST dataset. In Part A, we trained a custom convolutional neural network (CNN) from scratch for 20 epochs, comparing training with and without random horizontal and vertical flips across three paired seeds. The model achieved a mean test macro F1 of 97.44% ± 0.23 without augmentation and 97.09% ± 0.40 with augmentation,mean paired decrease of 0.35 percentage points. In Part B, we compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fully fine-tuned model. The fine-tuned model achieved a mean test accuracy of 98.81% ± 0.02, compared with 88.97% ± 0.22 for the frozen model. Overall, fine-tuning achieved the strongest classification performance among the evaluated approaches. These findings apply to the BloodMNIST dataset and do not establish generalisation to independent clinical datasets.
 
+We investigated approaches to classifying eight blood cell types from RGB microscopy images using the BloodMNIST dataset. In Part A, we trained a custom convolutional neural network (CNN) from scratch for 20 epochs, comparing training with and without random horizontal and vertical flips across three paired seeds. The model achieved a mean test macro F1 of 97.44% ± 0.23 without augmentation and 97.09% ± 0.40 with augmentation, a mean paired decrease of 0.35 percentage points. In Part B, we compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fully fine-tuned model. The fine-tuned model achieved a mean test accuracy of 98.81% ± 0.02, compared with 88.97% ± 0.22 for the frozen model. Overall, fine-tuning achieved the strongest classification performance among the evaluated approaches. These findings apply to the BloodMNIST dataset and do not establish generalisation to independent clinical datasets.
 ## Repository structure
 
 | File or folder | Purpose |
