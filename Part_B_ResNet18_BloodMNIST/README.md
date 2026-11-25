@@ -11,9 +11,17 @@ Two configurations are compared:
 
 The objective is to investigate whether fine-tuning an ImageNet-pretrained model improves multiclass blood cell classification compared with using a frozen pretrained backbone.
 
-## 2. Research Question
+## 2. Research Question and Hypothesis
+
+**Research Question**
 
 To what extent does fine-tuning an ImageNet-pretrained ResNet-18 improve multiclass blood cell classification compared with using a frozen pretrained backbone?
+
+**Research Hypothesis**
+
+We hypothesise that fine-tuning an ImageNet-pretrained ResNet-18 will improve blood cell classification performance compared with keeping its pretrained backbone frozen. Specifically, we expect fine-tuning to produce higher test accuracy and macro F1-score by adapting the pretrained features to the visual characteristics of BloodMNIST images.
+
+We evaluate this hypothesis by measuring the paired differences in test accuracy and macro F1-score between the two configurations across three random seeds, using bootstrap confidence intervals to assess the uncertainty of the improvements.
 
 ## 3. Dataset Description
 
@@ -59,9 +67,9 @@ Before training, an exact duplicate audit was performed using image hashes. The 
 
 Duplicate images were removed using a deterministic retention order: training, validation and then test, retaining the earliest image within each split. One duplicate group contained identical image pixels with conflicting Eosinophil and Neutrophil labels. The training occurrence was retained according to the predefined policy; this does not establish which original label is biologically correct.
 
-The cleaned dataset contains 17,075 images, with no exact duplicate images remaining across the retained splits.
+The cleaned dataset contains 17,075 images, with 11,951 training, 1,709 validation and 3,415 test images.
 
-The audit also identified five potential near-twin pairs between training and testing. Direct pixel-level comparison confirmed that these were exact duplicates rather than non-identical near-duplicates.
+The dataset audit also identified five potential near-twin relationships between training and test images. These should be considered when interpreting test performance.
 
 ## 4. Image Preprocessing
 
@@ -135,7 +143,7 @@ These results suggest that adapting the pretrained feature representations to Bl
 
 ### Statistical Analysis
 
-Paired bootstrap confidence intervals were calculated using 2,000 resamples of the 3,415 test images. The same resampled test indices were used for both configurations and all three seeds.
+Paired bootstrap confidence intervals were calculated using 2,000 resamples of the 3,415 test images.
 
 | Metric | Fine-tuned minus frozen | 95% Bootstrap CI |
 |---|---:|---:|
@@ -150,9 +158,7 @@ The confusion matrices showed that most remaining errors in the fine-tuned model
 
 The most frequent misclassification was neutrophils predicted as immature granulocytes, with 51 errors across the three seeds. This was followed by immature granulocytes predicted as neutrophils, with 21 errors. Other recurring errors included monocytes predicted as immature granulocytes (11 errors) and erythroblasts predicted as immature granulocytes (9 errors).
 
-The 51 neutrophil-to-immature-granulocyte errors represented approximately 2.56% of the pooled true-neutrophil test predictions across the three runs. The 21 errors in the reverse direction represented approximately 1.21% of pooled true immature-granulocyte predictions.
-
-These findings indicate that distinguishing between neutrophils and immature granulocytes remained a particular challenge despite the high overall classification performance.
+These findings indicate that distinguishing between neutrophils and immature granulocytes remained a particular challenge despite the high overall classification performance. The error counts are pooled across the three runs and do not represent unique test images.
 
 ### Focus-Class Analysis: Immature Granulocytes
 
@@ -251,7 +257,7 @@ Although the fine-tuned model achieved high classification performance on the cl
 
 - **Dataset generalisation:** The experiments used one public benchmark dataset. Performance on images from other hospitals, laboratories, patient populations, microscopes or staining protocols has not been established.
 - **Patient-level independence:** Patient and source identifiers were unavailable, so patient-level separation across dataset splits could not be independently verified.
-- **Near-duplicate images:** Exact duplicates were removed, but five retained near-twin relationships were identified during the audit and confirmed to be exact pixel duplicates in the original data. Their potential influence on test performance should be considered.
+- **Near-duplicate images:** The dataset audit identified five potential near-twin relationships between training and test images. Their potential influence on test performance should be considered.
 - **Class similarity:** Remaining confusion between neutrophils and immature granulocytes indicates that some visually similar categories remain challenging.
 - **Explainability:** Grad-CAM provides qualitative visualisations but cannot establish that the model relies on clinically meaningful biological features.
 - **Limited repeated runs:** Three random seeds provide an indication of consistency, but additional runs would provide stronger evidence of reproducibility.
