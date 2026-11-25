@@ -1,8 +1,0 @@
-medmnist==3.0.2
-torch==2.9.1
-torchvision==0.24.1
-numpy==2.3.2
-pandas==2.3.3
-scikit-learn==1.8.0
-matplotlib==3.10.8
-Pillow==11.3.0
