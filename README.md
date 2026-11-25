@@ -2,29 +2,30 @@
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · Winter semester 2026/27**
 
-**Authors: Ishika Thakur (Part A) and Sushma (Part B)**
-**Repository:** https://github.com/Sushmanayak2000/Biomedical_Image_Analysis  
-**Date:** 24 November 2026
+**Authors:** Ishika Thakur (Part A) and Sushma (Part B)  
+**Repository:** [Biomedical Image Analysis](https://github.com/Sushmanayak2000/Biomedical_Image_Analysis)  
+**Date:** 25 November 2026
 
 ## Abstract
 
-We investigated two training choices for classifying eight blood cell types from RGB microscopy images in BloodMNIST. In Part A, we trained a custom CNN from scratch with and without random horizontal and vertical flips across three paired seeds. Mean test macro F1 was 97.13% ± 0.63 without flips and 95.68% ± 1.37 with flips, a mean paired decrease of 1.45 percentage points. In Part B, the fine-tuned ImageNet-pretrained ResNet-18 achieved 98.80% ± 0.18 test accuracy, compared with 89.03% ± 0.27 for the frozen backbone. These results describe performance on BloodMNIST. Performance on independent clinical datasets remains unverified.
+We investigated two approaches to classifying eight blood cell types from RGB microscopy images in BloodMNIST. In Part A, we trained a custom CNN from scratch for 20 epochs with and without random horizontal and vertical flips across three paired seeds. Mean test macro F1 was **97.44% ± 0.23** without flips and **97.09% ± 0.40** with flips, a mean paired decrease of **0.35 percentage points**. In Part B, the fine-tuned ImageNet-pretrained ResNet-18 achieved **98.80% ± 0.18** test accuracy, compared with **89.03% ± 0.27** for the frozen backbone. These results describe performance on BloodMNIST. Performance on independent clinical datasets remains unverified.
 
-## Repository Structure
+## Repository structure
 
 | File or folder | Purpose |
 | --- | --- |
-| [`Part A/`](./Part%20A/) | Contains the custom CNN trained from scratch on BloodMNIST, the comparison with and without data augmentation, and the saved evaluation results. |
-| [`Part_B_ResNet18_BloodMNIST/`](./Part_B_ResNet18_BloodMNIST/) | Contains the ResNet-18 transfer learning experiments for BloodMNIST classification and their evaluation results. |
-| [`lab_results/`](./lab_results/) | Contains the instructor-provided lab notebook and the outputs from the in-class exercises for lab Parts A, B, and C. |
-| [`BloodMNIST_SharedPreps.ipynb`](./BloodMNIST_SharedPreps.ipynb) | Records the initial BloodMNIST dataset exploration and preparation that both team members worked on together. |
-| [`README.md`](./README.md) | Introduces the project and explains how the repository is organized. |
+| [`Part A/`](./Part%20A/) | Scratch CNN, paired augmentation experiment and saved evaluation outputs. |
+| [`Part A/requirements.txt`](./Part%20A/requirements.txt) | Python dependencies for the Part A notebook. |
+| [`Part A/results 4/`](./Part%20A/results%204/) | Final 20-epoch Part A results, plots and configuration files. |
+| [`Part_B_ResNet18_BloodMNIST/`](./Part_B_ResNet18_BloodMNIST/) | ResNet-18 transfer learning experiments and evaluation results. |
+| [`lab_results/`](./lab_results/) | Instructor-provided lab notebook and outputs from the in-class exercises. |
+| [`BloodMNIST_SharedPreps.ipynb`](./BloodMNIST_SharedPreps.ipynb) | Initial dataset exploration and preparation completed jointly by both team members. |
 
 ## 1 · The biomedical problem (15%, with Section 2)
 
 - **Clinical question** — How effectively can CNN-based models classify eight types of blood cells from microscopy images?
-- **Task type** — Multiclass image classification. The source image is a 128 × 128 RGB microscopy image of an individual blood cell. The output is one of eight blood cell labels.
-- **Why it is hard** — Some blood cell types differ in subtle features such as nucleus shape, staining patterns and cellular texture. Class frequencies also vary, so overall accuracy alone can hide poor performance on individual classes.
+- **Task** — Multiclass image classification. Each input is an RGB microscopy image of an individual blood cell, and the model predicts one of eight class labels.
+- **Why it is hard** — Some cell types differ in subtle features such as nucleus shape, staining patterns and cellular texture. Class frequencies also vary, so overall accuracy can hide errors concentrated in individual classes.
 
 ## 2 · The data (15%, with Section 1)
 
@@ -33,12 +34,12 @@ We investigated two training choices for classifying eight blood cell types from
 | Source and version | BloodMNIST 128 × 128 from MedMNIST v2. Archive `bloodmnist_128.npz`, Zenodo record 10519652. |
 | Licence | Creative Commons Attribution 4.0 International (CC BY 4.0). |
 | Modality | Two-dimensional RGB microscopy images of individual blood cells. |
-| Size | 17,092 images at 128 × 128 pixels across eight classes. |
-| Labelling | Clinical pathologists at the Hospital Clínic of Barcelona labelled the original images (Acevedo et al., 2020). Inter-annotator agreement was not reported. |
+| Size | 17,092 images across eight classes. |
+| Labelling | Clinical pathologists at the Hospital Clínic of Barcelona labelled the original images. Inter-annotator agreement was unavailable. |
 | Classes | Basophil, eosinophil, erythroblast, immature granulocytes, lymphocyte, monocyte, neutrophil and platelet. |
-| Part A preprocessing | We kept the original 128 × 128 resolution and computed RGB normalisation statistics using retained training images only. One training condition used random horizontal and vertical flips. Both conditions used identical deterministic preprocessing for validation and test. |
-| Part B preprocessing | We resized images to 224 × 224 and used ImageNet normalisation. Training augmentation included horizontal and vertical flips and rotation up to ±15°. |
-| Shared with Deep Learning | The Deep Learning project used EuroSAT satellite images. |
+| Part A preprocessing | Original 128 × 128 resolution and RGB normalisation statistics computed from retained training images. Validation and test preprocessing was identical in both conditions. |
+| Part B preprocessing | Images resized to 224 × 224 with ImageNet normalisation. Training augmentation included horizontal and vertical flips and rotation up to ±15°. |
+| Deep Learning project | The separate Deep Learning project used EuroSAT satellite images. |
 
 Both parts started with the official BloodMNIST splits. Part A removed exact pixel duplicates before preprocessing. Part B used the official split sizes.
 
@@ -48,11 +49,11 @@ Both parts started with the official BloodMNIST splits. Part A removed exact pix
 | Validation | 1,712 | 1,709 | 3 |
 | Test | 3,421 | 3,415 | 6 |
 
-For Part A, we verified the original shapes, label range and coverage of all eight classes. We audited raw pixels for exact matches and kept the first occurrence in train → validation → test order, using the original row order within each split. One excluded test duplicate had a conflicting label. We kept the retained row's original label and recorded both labels in the split manifest. Validation and test labels had no influence on which training rows we kept.
+Part A checked image shapes, label range and class coverage. For pixel-identical images, we kept the first occurrence in train → validation → test order and used the original row order within each split. One excluded test duplicate had a conflicting label. The split manifest records both labels, and the retained row kept its original label. Training row selection was independent of validation and test labels.
 
-The retained Part A splits contained zero exact pixel duplicates within or across splits. The archive provides image and label arrays, so patient and source overlap could not be verified. Near-duplicate overlap was not tested.
+The retained Part A splits contained zero exact pixel duplicates within or across splits. The archive provides image and label arrays, so patient and source overlap could not be verified. The template audit reported five near-twins between training and test. Such overlap could make some test images easier to classify. If those findings correspond to five distinct images in the retained Part A test split, the maximum effect on test accuracy would be approximately **0.15 percentage points** (5 of 3,415 images). [Template audit](./lab_results/C5_summary.md)
 
-![One retained training example from each BloodMNIST class](Part%20A/results%20%28part%20A%29/bloodmnist_class_grid.png)
+![One retained training example from each BloodMNIST class](./Part%20A/results%204/bloodmnist_class_grid.png)
 
 *Figure 1. Representative 128 × 128 RGB images from the retained Part A training split.*
 
@@ -60,19 +61,19 @@ The retained Part A splits contained zero exact pixel duplicates within or acros
 
 ### Part A · Scratch CNN and data augmentation
 
-We tested whether random horizontal and vertical flips improve classification performance for a custom CNN trained from scratch. The CNN trained without augmentation served as the reference condition.
+We tested whether random horizontal and vertical flips improve classification for a custom CNN trained from scratch. The CNN trained without augmentation served as the reference condition.
 
-The model has three convolutional blocks with 16, 32 and 64 filters. Each block uses a 3 × 3 convolution, batch normalisation, ReLU and 2 × 2 max pooling. Adaptive average pooling produces 4 × 4 feature maps, which are flattened and passed to a linear layer with eight outputs. The model has 31,896 trainable parameters.
+The model has three convolutional blocks with 16, 32 and 64 filters. Each block uses a 3 × 3 convolution, batch normalisation, ReLU and 2 × 2 max pooling. Adaptive average pooling produces 4 × 4 feature maps, which are flattened and passed to a linear layer with eight outputs. The model has **31,896 trainable parameters**.
 
-We ran both conditions for seeds 42, 43 and 44. Within each pair, we matched initial weights, training image order per epoch, architecture, loss, optimiser, batch size and epoch budget. We used AdamW with a learning rate of 0.001 and weight decay of 0.0001, cross-entropy loss, a batch size of 64 and 10 epochs. In the augmented condition, we applied horizontal and vertical flips independently, each with a probability of 0.5.
+We ran both conditions for seeds 42, 43 and 44. Within each pair, we matched initial weights, training image order per epoch, architecture, loss, optimiser, batch size and epoch budget. We used AdamW with a learning rate of 0.001 and weight decay of 0.0001, cross-entropy loss, a batch size of 64 and **20 epochs per run**. In the augmented condition, we applied horizontal and vertical flips independently, each with probability 0.5.
 
-![Examples of original training images and random flip draws](Part%20A/results%20%28part%20A%29/augmentation_preview.png)
+![Original training images and random flip examples](./Part%20A/results%204/augmentation_preview.png)
 
 *Figure 2. The first column shows the original image. The other columns show independent draws from the augmentation pipeline.*
 
 ### Part B · Transfer learning with ResNet-18
 
-We compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fine-tuned ResNet-18. In the frozen configuration, we trained only the final classification layer. In the fine-tuned configuration, we trained all layers. Both configurations used cross-entropy loss. Part B did not separately evaluate a largest-class or classical machine-learning baseline.
+We compared an ImageNet-pretrained ResNet-18 with a frozen backbone against a fine-tuned ResNet-18. In the frozen configuration, we trained only the final classification layer. In the fine-tuned configuration, we trained all layers. Both configurations used cross-entropy loss.
 
 Both configurations used the official BloodMNIST splits, a batch size of 64, 10 epochs per run and seeds 42, 43 and 44. The learning rates were 0.001 for the frozen model and 0.0001 for the fine-tuned model. We evaluated accuracy, macro precision, macro recall and macro F1.
 
@@ -80,44 +81,62 @@ Both configurations used the official BloodMNIST splits, a batch size of 64, 10 
 
 ### Part A
 
-- **Notebook and environment** — We ran [PartA_cnn.ipynb](Part%20A/PartA_cnn.ipynb) in JupyterLab on Compute Data Lab. We verified CUDA execution and checked that a batch of 128 × 128 RGB images produced eight logits per image. The runs used an NVIDIA RTX A6000 with PyTorch 2.9.1 and CUDA 12.8. Package versions, normalisation statistics and training settings are recorded in the [run configuration](Part%20A/results%20%28part%20A%29/run_config.json).
-- **Checkpoint selection** — We selected the checkpoint with the highest validation macro F1 for each run, keeping the earlier epoch in a tie. We froze the training settings and checkpoint choices before final test evaluation.
-- **Resume and outputs** — We saved full epoch histories and progress checkpoints for all six runs. The notebook can resume an interrupted run from the last saved epoch and reuse a completed run with matching settings. We also saved the split manifest, validation and test metrics, confusion matrix counts and test predictions with original row IDs. The notebook verified that all 54 expected output files were present and nonempty.
+- **Notebook and environment** — We ran the Part A notebook in JupyterLab on Compute Data Lab. The runs used an NVIDIA RTX A6000 with PyTorch 2.9.1 and CUDA 12.8. We verified CUDA execution and checked that the CNN produced eight logits per image. Package versions, normalisation statistics and training settings are recorded in the [run configuration](./Part%20A/results%204/run_config.json).
+- **Checkpoint selection** — We selected the checkpoint with the highest validation macro F1 for each run, keeping the earlier epoch in a tie. We froze the settings and checkpoint choices before test evaluation.
+- **Resume and outputs** — The notebook can resume interrupted runs from the last saved epoch and reuse completed runs with matching settings. It saves epoch histories, checkpoints, the split manifest, evaluation metrics, confusion matrices and test predictions with original row IDs. The final check verified **58 nonempty output files**.
+
+To install the Part A dependencies, run this command from the `Part A/` folder in a Python 3.11 environment configured for NVIDIA CUDA:
+
+~~~bash
+python -m pip install -r requirements.txt
+~~~
 
 ### Part B
 
-- **Notebook and environment** — We implemented the experiment in `Part_B_ResNet18_BloodMNIST.ipynb` using Python and PyTorch. The Part B `requirements.txt` documents the required packages.
-- **Seeds and hardware** — Both configurations ran on an NVIDIA A6000 GPU for 10 epochs per seed with a batch size of 64. The seeds were 42, 43 and 44. Total training time was not reported.
-- **Outputs** — The notebook generates training histories, validation and test metrics, classification reports, confusion matrices, bootstrap confidence intervals, Grad-CAM visualisations and prediction examples. Checkpoints and histories are saved in the Part B results directory.
+- **Notebook and environment** — We implemented the experiment using Python and PyTorch. The Part B `requirements.txt` documents its dependencies.
+- **Seeds and hardware** — Both configurations ran on an NVIDIA A6000 GPU for 10 epochs per seed with a batch size of 64. The seeds were 42, 43 and 44.
+- **Outputs** — The notebook generates training histories, validation and test metrics, classification reports, confusion matrices, bootstrap confidence intervals, Grad-CAM visualisations and prediction examples.
 
 ## 5 · Evaluation, validation and critical analysis (15%)
 
 ### Part A
 
-We evaluated the six frozen checkpoints on the same 3,415 retained test images. We reported accuracy, balanced accuracy, macro F1 and per-class precision, recall and F1. Macro F1 gives each of the eight classes equal weight when averaging class-level F1 scores.
+We evaluated the six validation-selected checkpoints on the same **3,415 retained test images**. Macro F1 gives each of the eight classes equal weight. Values below are mean ± sample standard deviation across three seeds.
 
 | Training condition | Test accuracy (%) | Test macro F1 (%) | Test balanced accuracy (%) |
 | --- | ---: | ---: | ---: |
-| Without augmentation | 97.22 ± 0.52 | 97.13 ± 0.63 | 96.88 ± 0.80 |
-| With augmentation | 95.99 ± 1.13 | 95.68 ± 1.37 | 95.27 ± 1.52 |
+| Without augmentation | 97.44 ± 0.17 | 97.44 ± 0.23 | 97.48 ± 0.20 |
+| With augmentation | 97.08 ± 0.47 | 97.09 ± 0.40 | 97.07 ± 0.42 |
 
-Values are mean ± sample standard deviation across the three seeds.
+The paired changes below are the scores with augmentation minus the scores without augmentation, in percentage points (pp).
 
 | Seed | Accuracy change (pp) | Macro F1 change (pp) | Balanced accuracy change (pp) |
 | --- | ---: | ---: | ---: |
-| 42 | −0.26 | −0.27 | −0.14 |
-| 43 | −2.90 | −3.46 | −3.93 |
-| 44 | −0.53 | −0.62 | −0.77 |
+| 42 | −1.02 | −0.96 | −1.10 |
+| 43 | +0.18 | +0.25 | −0.05 |
+| 44 | −0.23 | −0.36 | −0.08 |
 
-Each change is the score with augmentation minus the score without augmentation, in percentage points (pp). Flips reduced test macro F1 for all three seeds, with a mean paired change of **−1.45 pp**. Accuracy and balanced accuracy also declined in every pair.
+Test macro F1 improved with flips for one seed and declined for two, with a mean paired change of **−0.35 pp**. Balanced accuracy declined in all three pairs, with a mean paired change of **−0.41 pp**. All six runs selected their best validation checkpoint between epochs 13 and 20. One run selected epoch 20, so the 20-epoch budget still leaves convergence uncertain.
 
-Mean class F1 decreased for seven of the eight classes. The largest drops were for monocytes (−3.36 pp), basophils (−2.53 pp), immature granulocytes (−2.31 pp) and lymphocytes (−2.05 pp). Platelets were the only class with an increase (+0.04 pp).
+![Learning curves for the six Part A runs](./Part%20A/results%204/runs/404efcfe5a8be877/learning_curves.png)
 
-We kept the shared 10-epoch budget because validation macro F1 did not improve consistently near the end across the six runs. The findings apply to the tested combination of horizontal and vertical flips under this training protocol. Patient and source overlap remain unverifiable, and we did not evaluate performance on an external dataset.
+*Figure 3. Training loss, validation loss and validation macro F1 across the 20 epochs.*
 
-![Test confusion matrices for the six Part A runs](Part%20A/results%20%28part%20A%29/runs/834896128886ba35/test_confusion_matrices.png)
+#### Focus class · Immature granulocytes
 
-*Figure 3. Columns show seeds 42, 43 and 44. The top row shows runs without augmentation and the bottom row shows runs with augmentation.*
+Mean test F1 declined with flips for six classes, with the largest decreases for monocytes (−1.02 pp) and immature granulocytes (−0.78 pp). We examined immature granulocyte recall separately across the **579** test images in that class.
+
+| Training condition | Mean recall (%) | 95% bootstrap CI |
+| --- | ---: | ---: |
+| Without augmentation | 93.96 | 92.29–95.51 |
+| With augmentation | 94.82 | 93.32–96.26 |
+| With minus without (pp) | +0.86 | −0.06 to +1.78 |
+
+Recall improved for two seeds and declined for one. The confidence interval for the paired change includes zero. The bootstrap resamples test images for the three fitted seed pairs.
+
+![Test confusion matrices for the six Part A runs](./Part%20A/results%204/runs/404efcfe5a8be877/test_confusion_matrices.png)
+
+*Figure 4. Columns show seeds 42, 43 and 44. The top row shows runs without augmentation, and the bottom row shows runs with augmentation.*
 
 ### Part B
 
@@ -126,24 +145,27 @@ We kept the shared 10-epoch budget because validation macro F1 did not improve c
 | Frozen ResNet-18 | 89.03 | 0.27 | 42, 43, 44 |
 | Fine-tuned ResNet-18 | 98.80 | 0.18 | 42, 43, 44 |
 
-The fine-tuned model also achieved mean test macro precision of 98.90%, macro recall of 98.86% and macro F1 of 98.88%. Frequent classification errors involved neutrophils and immature granulocytes. We also observed confusion involving immature granulocytes, monocytes and lymphocytes.
+The fine-tuned model also achieved mean test macro precision of 98.90%, macro recall of 98.86% and macro F1 of 98.88%. Frequent errors involved neutrophils and immature granulocytes. We also observed confusion involving immature granulocytes, monocytes and lymphocytes.
 
-We selected checkpoints using validation accuracy and evaluated them on the official 3,421-image test split. Inter-observer agreement was unavailable, so we could not establish a human performance reference. Parts A and B used different preprocessing, split handling and checkpoint selection, which limits direct comparison of their scores.
+Part B selected checkpoints using validation accuracy and evaluated them on the official 3,421-image test split. Parts A and B differ in architecture, pretraining, input resolution, augmentation, split handling and checkpoint selection. These differences limit what can be inferred from the gap between their scores.
 
 ## 6 · Explainability, ethics and clinical responsibility (5%)
 
-### Part A · Explainability, ethics and clinical responsibility
+### Part A
 
-- **Most frequent mistake.** Across the three seeds, the scratch CNN most often misclassified neutrophils as immature granulocytes, doing so in 57 of 1,995 neutrophil predictions (2.86%) without augmentation and 74 of 1,995 (3.71%) with augmentation.
-- **Who could be harmed and who is missing.** Patients could be harmed if an incorrect cell label influenced their care, and BloodMNIST lacks patient demographic metadata, so we cannot determine which patient groups are underrepresented.
-- **Who decides.** We define the scratch CNN as a research and teaching tool, and qualified laboratory staff and clinicians remain responsible for interpreting blood smears.
+The most frequent directional error was predicting immature granulocytes for true neutrophils. Across three seeds, it occurred in **54 of 1,995** predictions on true neutrophils (2.71%) without augmentation and **94 of 1,995** (4.71%) with augmentation. Across all classes, **27 test images** were misclassified by all six runs.
 
+![Examples of test images misclassified by all six Part A runs](./Part%20A/results%204/runs/404efcfe5a8be877/test_always_misclassified.png)
+
+*Figure 5. Examples of test images that all six Part A runs classified incorrectly.*
+
+Incorrect cell labels could affect clinical interpretation. BloodMNIST lacks patient demographic metadata, so we cannot determine which patient groups are underrepresented. The scratch CNN is a research and teaching tool. Qualified laboratory staff and clinicians remain responsible for interpreting blood smears.
 
 ### Part B
 
-We used Grad-CAM to inspect image regions associated with ResNet-18 predictions. The heatmaps help identify where the model focused. Further evidence would be needed to establish that these regions correspond to biologically meaningful features.
+We used Grad-CAM to inspect image regions associated with ResNet-18 predictions. Further evidence would be needed to establish whether the highlighted regions correspond to biologically meaningful features.
 
-Both parts used a public research dataset. Misclassification could affect clinical interpretation, so any prospective clinical workflow would require specialist review and independent evaluation across patient populations, imaging systems and staining protocols. We did not validate either model for clinical use.
+Both parts used a public research dataset. A prospective clinical workflow would require specialist review and independent evaluation across patient populations, imaging systems and staining protocols.
 
 ## 7 · Use of AI tools (5%)
 
@@ -153,9 +175,9 @@ For Part B, ChatGPT helped explain ResNet-18 and PyTorch concepts, troubleshoot 
 
 ## 8 · Conclusion (documentation and communication, 5%)
 
-In Part A, random horizontal and vertical flips reduced test performance under the shared 10-epoch training protocol. The CNN trained without flips achieved a mean test macro F1 of **97.13%**, compared with **95.68%** for the CNN trained with flips. The decrease occurred in all three seed pairs.
+In Part A, the scratch CNN trained without augmentation achieved **97.44% mean test accuracy**. Mean test macro F1 was **97.44% without flips** and **97.09% with flips**. Horizontal and vertical flips provided no average macro F1 gain under the shared 20-epoch protocol, and the effect varied across seeds.
 
-In Part B, fine-tuning the pretrained ResNet-18 improved mean test accuracy from **89.03%** with a frozen backbone to **98.80%**. Each result addresses its own experimental comparison. Independent evaluation would be needed to establish generalisation to other clinical datasets and imaging conditions.
+In Part B, fine-tuning ImageNet-pretrained ResNet-18 improved mean test accuracy from **89.03%** with a frozen backbone to **98.80%**. The paired Part A comparison isolates the effect of the tested flips on the scratch CNN. The Part B comparison measures the benefit of fine-tuning within its transfer learning setup.
 
 ## References
 
