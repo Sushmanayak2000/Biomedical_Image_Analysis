@@ -219,10 +219,11 @@ Incorrect cell labels could affect clinical interpretation. BloodMNIST lacks pat
 
 ### Part B
 
-We used Grad-CAM to inspect image regions associated with ResNet-18 predictions. Further evidence would be needed to establish whether the highlighted regions correspond to biologically meaningful features.
+We used Grad-CAM to examine image regions influencing predictions made by the fine-tuned ResNet-18 model. Visualisations were generated for correctly and incorrectly classified test images using the model trained with seed 42. This allowed us to qualitatively inspect the regions associated with the model's predictions and errors.
 
-Both parts used a public research dataset. A prospective clinical workflow would require specialist review and independent evaluation across patient populations, imaging systems and staining protocols.
+We also performed a random-weight sanity check by comparing the trained model's heatmap with that of a randomly initialised ResNet-18 model using the same test image. This provided a qualitative comparison of explanations generated with and without learned model parameters. However, Grad-CAM does not establish whether highlighted regions correspond to biologically meaningful features or prove that the model uses clinically relevant information.
 
+Incorrect blood-cell classifications could affect subsequent clinical interpretation. Therefore, the model should be considered a research and educational tool rather than a diagnostic system. Both approaches require further evaluation using independent datasets, different patient populations, imaging systems and staining protocols. Qualified laboratory professionals and clinicians must remain responsible for interpreting blood-cell images.
 ## 7 · Use of AI tools (5%)
 
 For Part A, ChatGPT helped troubleshoot implementation and interpret evaluation outputs. We checked CUDA execution, the CNN output shape, the duplicate audit and the saved results against actual notebook outputs.
